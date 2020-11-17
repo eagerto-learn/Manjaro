@@ -1,0 +1,150 @@
+conky.config = {
+
+
+	--Various settings
+	background = true,
+	cpu_avg_samples = 2,							-- The number of samples to average for CPU monitoring.
+	diskio_avg_samples = 10,						-- The number of samples to average for disk I/O monitoring.
+	double_buffer = true,							-- Use the Xdbe extension? (eliminates flicker)
+	net_avg_samples = 2,							-- The number of samples to average for net data
+	no_buffers = true,							    -- Subtract (file system) buffers from used memory?
+	temperature_unit = 'celsius',					-- fahrenheit or celsius
+	text_buffer_size = 2048,						-- size of buffer for display of content of large variables - default 256
+	update_interval = 1,							-- update interval
+	
+
+	--Placement
+	alignment = 'top_right',						-- top_left,top_middle,top_right,bottom_left,bottom_middle,bottom_right,middle_left,middle_middle,middle_right,none
+	gap_x = 15,							 	        -- pixels between right or left border
+	gap_y = -10,								    -- pixels between bottom or left border
+	minimum_height = 600,							-- minimum height of window
+	minimum_width = 300,							-- minimum width of window
+	maximum_width = 350,							-- maximum width of window
+
+
+
+	--Graphical
+	--border_inner_margin = 10, 					-- margin between border and text
+	--border_outer_margin = 5, 						-- margin between border and edge of window
+	--border_width = 0, 							-- border width in pixels
+	default_bar_width = 80,							-- default is 0 - full width
+	default_bar_height = 10,						-- default is 6
+	default_gauge_height = 25,						-- default is 25
+	default_gauge_width =40,						-- default is 40
+	default_graph_height = 40,						-- default is 25
+	default_graph_width = 0,						-- default is 0 - full width
+	default_shade_color = '#000000',				-- default shading colour
+	default_outline_color = '#000000',				-- default outline colour
+	draw_borders = false,							-- draw borders around text
+	draw_graph_borders = false,						-- draw borders around graphs
+	draw_shades = false,							-- draw shades
+	draw_outline = false,							-- draw outline
+	stippled_borders = 0,							-- dashing the border
+
+
+	--Textual
+	extra_newline = false,							-- extra newline at the end - for asesome's wiboxes
+	format_human_readable = true,					-- KiB, MiB rather then number of bytes
+	font = 'ubuntu:size=10',  						-- font for complete conky unless in code defined
+	max_text_width = 0,							    -- 0 will make sure line does not get broken if width too smal
+	max_user_text = 16384,							-- max text in conky default 16384
+	override_utf8_locale = true,					-- force UTF8 requires xft
+	short_units = true,							    -- shorten units from KiB to k
+	top_name_width = 21,							-- width for $top name value default 15
+	top_name_verbose = false,						-- If true, top name shows the full command line of  each  process - Default value is false.
+	uppercase = false,							    -- uppercase or not
+	use_spacer = 'none',							-- adds spaces around certain objects to align - default none
+	use_xft = true,								    -- xft font - anti-aliased font
+	xftalpha = 1,							       	-- alpha of the xft font - between 0-1
+
+
+	--Windows
+	own_window = true,							    -- create your own window to draw
+	own_window_argb_value = 0,			    		-- real transparency - composite manager required 0-255
+	own_window_argb_visual = true,					-- use ARGB - composite manager required
+	own_window_colour = '#000000',					-- set colour if own_window_transparent no
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
+	own_window_transparent = true,					-- if own_window_argb_visual is true sets background opacity 0%
+	own_window_title = 'system_conky',				-- set the name manually  - default conky "hostname"
+	own_window_type = 'normal',						-- if own_window true options are: normal/override/dock/desktop/panel
+
+
+	--Colours
+	default_color = '#70D4F8',  	--#EAC58A				-- default color and border color
+	color1 = '#FF0000',
+	color2 = '#578EED',		--#578EED
+	color3 = '#cccccc',
+	color4 = '#D9BC83',
+	color5 = '#2E64FE',		--#2E64FE
+	color6 = '#FFFFFF',
+	--#2E64FE
+	--#2E2EFE
+	--#B40404	
+	--#578EED
+	--#02B6F8
+	--#3EBBE9
+	--#70D4F8
+
+	--Signal Colours
+	color7 = '#2CFF00',  							--green
+	color8 = '#FFA726',  							--orange
+	color9 = '#F1544B',  							--firebrick
+
+
+};
+
+conky.text = [[
+
+${color5}${font Ubuntu:bold:size=10}${voffset 7}S Y S T E M   ${hr 2}${font}${color}
+${color2}${voffset 8}Hostname:${color} ${alignr}${nodename_short}
+${color2}Distro:${color}${alignr}${alignr}${execi 108000 echo $(awk -F'=' '/^NAME=/ {print $2}' /etc/os-release | tr -d '"')} ${execi 108000 echo $(lsb_release -sr)}
+${color2}Kernel:${color}${alignr}${exec uname} ${exec uname -r | cut -d '-' -f 1}
+${color2}Install Date:${color} $alignr${execi 108000 stat / | grep 'Birth' | awk {'print $2'}}
+${color2}Repositories:${color}${alignr}${execpi 3600 ~/.checkRepo.sh} updates
+${color2}AUR:${color}${alignr}${execpi 3600 ~/.checkAUR.sh} updates
+${color2}Date/Time:${color} ${alignr}${time %d.%m.%Y - %H:%M:%S}
+${color2}Uptime:${color} ${alignr}${uptime}
+
+${color5}${font Ubuntu:bold:size=10}${voffset 7}W E A T H E R   ${hr 2}${font}${color}
+${color2}Karlsruhe:${color}${alignr}${texeci 3600 curl http://wttr.in/germany-karlsruhe?format="+%C+%t+%o"}
+${color2}Heidelberg:${color}${alignr}${texeci 3600 curl http://wttr.in/germany-heidelberg?format="+%C+%t+%o"}
+
+${color5}${font Ubuntu:bold:size=10}${voffset 1}V I D E O  ${hr 2}${font}${color}
+${color2}GPU:$alignr${color}${execi 6000 nvidia-smi --query-gpu=gpu_name --format=csv,noheader,nounits}
+${color2}Driver:${goto 135}${color}${execi 6000 nvidia-smi --query-gpu=driver_version --format=csv,noheader,nounits}${goto 190}${color2}GPU Temp: ${color} ${alignr}${execi 10 nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader} °C
+${color2}VRAM Utilization:${goto 130}${color}${exec nvidia-smi -i 0| grep % | cut -c 37-40} MB${goto 190}${color2}Utilization:$alignr${color}${exec nvidia-smi -i 0 | grep % | cut -c 61-63} %
+
+${color5}${font Ubuntu:bold:size=10}${voffset 1}P R O C E S S O R S  ${hr 2}${font}${color}
+#${color2}${voffset 8}Active Governor:${color} ${alignr}${execi 7 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor}
+${color2}RAM:${color} ${goto 65}$memperc% ${goto 100}${membar 13, 120} ${alignr}$mem / $memmax 
+${color2}Swap:${color} ${goto 65}${swapperc}% ${goto 100}${swapbar 13, 120} ${alignr}${swap} / ${swapmax}
+${color2}CPU:${color}${goto 65}${cpu cpu0}% ${goto 100}${cpubar cpu0 13, 60} ${alignr}${color2}Freq:${color} $alignr${freq} ${alignr}${color2}Temp:${color} $alignr${execi 10 sensors | grep 'Core 0' | awk {'print $3'}}
+#$cpugraph
+${color2}${offset 20} 1${goto 65}${color}${cpu cpu1}%${goto 105}${cpubar cpu1 13, 60}${goto 180}${color2} 2${goto 205}${color}${cpu cpu2}%${goto 245}${cpubar cpu2 13, 60}
+${color2}${offset 20} 3${goto 65}${color}${cpu cpu3}%${goto 105}${cpubar cpu3 13, 60}${goto 180}${color2} 4${goto 205}${color}${cpu cpu4}%${goto 245}${cpubar cpu4 13, 60}
+${color2}${offset 20} 5${goto 65}${color}${cpu cpu5}%${goto 105}${cpubar cpu5 13, 60}${goto 180}${color2} 6${goto 205}${color}${cpu cpu6}%${goto 245}${cpubar cpu6 13, 60}
+${color2}${offset 20} 7${goto 65}${color}${cpu cpu7}%${goto 105}${cpubar cpu7 13, 60}${goto 180}${color2} 8${goto 205}${color}${cpu cpu8}%${goto 245}${cpubar cpu8 13, 60}
+${color2}${offset 20} 9${goto 65}${color}${cpu cpu9}%${goto 105}${cpubar cpu9 13, 60}${goto 180}${color2}10${goto 205}${color}${cpu cpu10}%${goto 245}${cpubar cpu10 13, 60}
+${color2}${offset 20}11${goto 65}${color}${cpu cpu11}%${goto 105}${cpubar cpu11 13, 60}${goto 180}${color2}12${goto 205}${color}${cpu cpu12}%${goto 245}${cpubar cpu12 13, 60}
+
+${color5}${font Ubuntu:bold:size=10}${voffset 1}D R I V E S   ${hr 2}${font}${color}
+${color2}${voffset 8}SSD:${color} ${alignr}${offset -10}${fs_used /} / ${fs_size /}${alignr}${fs_used_perc /}% ${fs_bar /}
+${color2}HDD:${color} ${alignr}${offset -10}${fs_used /media/StorageHDD} / ${fs_size /media/StorageHDD}${alignr}${fs_used_perc /media/StorageHDD}% ${fs_bar /media/StorageHDD}
+
+${color5}${font Ubuntu:bold:size=10}${voffset 1}N E T W O R K   ${hr 2}${font}${color}
+${color2}${voffset 8}IP Address - Local: ${color} ${alignr}${offset -10$}${addrs wlo1}
+${color2}IP Address - Public: ${alignr}${offset -10}${if_empty ${exec cat /proc/net/route | grep tun0}}${color red}${exec ~/.conkyIP.sh}${exec cat ~/.IP}${else}${color green}${exec ~/.conkyIP.sh}${exec cat ~/.IP}${endif}
+${color2}VPN: ${alignr}${offset -10}${if_empty ${exec cat /proc/net/route | grep tun0}}${color red}Disconnected${else}${color green}${exec ~/.conkyVPN.sh}${exec cat ~/.VPNcountry} - ${exec cat ~/.VPNcity}${endif}
+${color2}${voffset 8}Signal: ${color} ${wireless_link_bar 8,180 wlo1}${color}${alignr 10 10}${wireless_link_qual_perc wlo1}%
+${color2}${voffset 8}Up Speed:   ${color}${upspeed wlo1}${goto 150}${color2}Down Speed: ${alignr 10}${color}${downspeed wlo1}
+${color2}Total Up: ${color}${totalup wlo1}${goto 150}${color2}Total Down: ${alignr 10}${color}${totaldown wlo1}
+#${color2}${alignr 30}${upspeedgraph wlo1 20,140 fc8c3b c6396b -t}   ${alignr 10}${color2}${downspeedgraph wlo1 20,140 fc8c3b c6396b -t}
+
+${color5}${font Ubuntu:bold:size=10}${voffset 1}B A T T E R Y   ${hr 2}${font}${color}
+#${color2}${voffset 8}Time Left: ${color} ${alignr}${offset -10$}${battery_time BAT0}
+${color2}State: ${color} ${alignr}${offset -10$}$Battery
+
+${color5}${font Ubuntu:bold:size=10}${voffset 1}T L P  ${hr 2}${font}${color}
+${color2}${voffset 8}Mode:${color} ${goto 222}${color} ${execi 5 tlp-stat -s |grep 'Mode' |awk '{print $3}' }
+${color2}Power Source:${color} ${goto 222}${color} ${execi 5 tlp-stat -s |grep 'source' |awk '{print $4}' }
+]];

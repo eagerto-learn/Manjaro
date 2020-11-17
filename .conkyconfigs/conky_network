@@ -1,0 +1,27 @@
+conky.config = {
+	alignment = 'top_left',
+	background = true,
+	color2 = '5D7B86',
+	cpu_avg_samples = 2,
+	default_color = 'F9FAF9',
+	double_buffer = true,
+	font = 'Bitstream Vera Sans:size=8',
+	draw_shades = false,
+	gap_x = 15,
+	gap_y = 0,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 1.0,
+	use_xft = true,
+}
+conky.text=[[
+$color${font Bitstream Vera Sans:size=8}${addrs wlo1} | ${if_empty ${exec cat ~/.nmclioutput.txt | grep externally}}${color red}${exec curl https://am.i.mullvad.net/ip}${else}${color green}${exec curl https://am.i.mullvad.net/ip}${endif}$color | VPN: ${exec ~/.conkyconfigs/VPNconky.sh} | ${color cyan} Downspeed: ${downspeed wlo1} $color- ${color green}Upspeed: ${upspeed wlo1}$color | Signal: ${wireless_link_qual_perc wlo1}% | AUR: ${execpi 3600 ~/.conkyconfigs/.checkAUR.sh} & Repo: ${execpi 3600 ~/.conkyconfigs/.checkRepo.sh}
+#
+#
+#$color ${if_empty ${exec cat ~/.nmclioutput.txt | grep externally}}Down${else}${exec ~/.conkyconfigs/.conkyVPN.sh}${exec cat ~/.conkyconfigs/.VPNcountry}-${exec cat ~/.conkyconfigs/.VPNcity}${endif}
+#$color ${if_empty ${exec cat ~/.nmclioutput.txt | grep externally}}Down${else}${exec ~/.conkyconfigs/.conkyVPN.sh}${exec cat ~/.conkyconfigs/.VPNcountry}-${exec cat ~/.conkyconfigs/.VPNcity} ${exec cat ~/.conkyconfigs/.VPNserver | awk {'print $7'}}${endif}
+#${if_empty ${exec cat /proc/net/route | grep tun0}}${color red}Disconnected${else}${color green}Connected${endif}
+]]
