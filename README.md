@@ -1,3 +1,3 @@
-# dotfiles
-Manjaro config files on main laptop
+# Manjaro
+Important files on Manjaro main laptop
 
