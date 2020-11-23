@@ -12,13 +12,16 @@ conky.config = {
 	minimum_width = 200,
 	no_buffers = true,
 	own_window = true,
-	own_window_type = 'override',
+	own_window_argb_value = 0,
+	own_window_argb_visual = true,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_type = 'dock',
 	own_window_transparent = true,
 	update_interval = 1.0,
 	use_xft = true,
 }
 conky.text=[[
-$color${font Bitstream Vera Sans:size=8}${addrs wlo1} | ${if_empty ${exec cat ~/.nmclioutput.txt | grep externally}}${color red}${exec curl https://am.i.mullvad.net/ip}${else}${color green}${exec curl https://am.i.mullvad.net/ip}${endif}$color | VPN: ${exec ~/.conkyconfigs/VPNconky.sh} | ${color cyan} Downspeed: ${downspeed wlo1} $color- ${color green}Upspeed: ${upspeed wlo1}$color | Signal: ${wireless_link_qual_perc wlo1}% | AUR: ${execpi 3600 ~/.conkyconfigs/.checkAUR.sh} & Repo: ${execpi 3600 ~/.conkyconfigs/.checkRepo.sh}
+$color${font Bitstream Vera Sans:size=8}${addrs wlo1} | ${if_empty ${exec cat ~/.nmclioutput.txt | grep externally}}${color red}${exec curl https://am.i.mullvad.net/ip}${else}${color green}${exec curl https://am.i.mullvad.net/ip}${endif}$color | VPN: ${exec ~/.conkyconfigs/VPNconky.sh} | ${color cyan} Downspeed: ${downspeed wlo1} $color- ${color green}Upspeed: ${upspeed wlo1}$color | Signal: ${wireless_link_qual_perc wlo1}% | AUR: ${execpi 3600 ~/.conkyconfigs/.checkAUR.sh} & Repo: ${execpi 3600 ~/.conkyconfigs/.checkRepo.sh} |
 #
 #
 #$color ${if_empty ${exec cat ~/.nmclioutput.txt | grep externally}}Down${else}${exec ~/.conkyconfigs/.conkyVPN.sh}${exec cat ~/.conkyconfigs/.VPNcountry}-${exec cat ~/.conkyconfigs/.VPNcity}${endif}
